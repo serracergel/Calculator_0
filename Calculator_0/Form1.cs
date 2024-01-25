@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
@@ -226,7 +227,7 @@ namespace Calculator_0
         byte operation;
 
         
-        //.If first charachter is 0 than write that character on to zero 
+       
         private void btnReset_Click(object sender, EventArgs e)
         {
            
@@ -249,10 +250,10 @@ namespace Calculator_0
 
         //TODO : if operation!=0 create the number as negative number
 
-        //TODO :ex:0.5 operations cant be done
-        //TODO:more than one operator?
-        //TODO : Refactoring
+        
 
+        //TODO : Refactoring
+        //.If first charachter is 0 than write that character on to zero 
 
         private void GetText(float number)
         {
@@ -266,12 +267,14 @@ namespace Calculator_0
             {   
                 if (string.IsNullOrEmpty(lblProcess.Text)) 
                 { 
-                    number1 = Convert.ToSingle(nmr1);
+                    number1 = Convert.ToSingle(nmr1,CultureInfo.InvariantCulture);
+                    Text = number1.ToString();
                     
                 }
                 else
                 {
-                    number2 = Convert.ToSingle(nmr1);
+                    number2 = Convert.ToSingle(nmr1,CultureInfo.InvariantCulture);
+                    Text = number2.ToString();
                 }
 
              
@@ -288,47 +291,34 @@ namespace Calculator_0
             
         }
 
-       
-
-        public void CatchTheNumber(float number,string dot,string text)
-        {
-            if (dot!=".")
-            {
-                number = float.Parse(text);
-            }
-        
-        }
-
-
-
      
         private void btnDivide_Click(object sender, EventArgs e)
         {
             operation = 4;
-            Sign();
+            SymbolCheck();
             AddToTextBox((sender as Button).Text);
             GetText(number1);  
         }
 
-        private void Sign()
+        private void SymbolCheck()
         {
             try
             {
                 char ch = txtResult.Text[txtResult.Text.Length - 1];
 
-                //TODO:if the last character is these the query turns true so btnMinus doesnt stop that.Adding an extra query can? solve that.
-                    if (ch == '+' || ch == 'x' || ch == '/' || ch=='-' )
-                    {
-                        //TODO:or dont show anything on messagebox and catch(Length) last symbol(item) and put it rather than that symbol
-                        MessageBox.Show("There is already an ongoing process ");
-                        return;
-                    }
-                
+               
+                //if (ch == '+' || ch == 'x' || ch == '/' || ch=='-' )
+                //{
+                //    //TODO:or dont show anything on messagebox and catch(Length) last symbol(item) and put it rather than that symbol
+                //    MessageBox.Show("There is already an ongoing process ");
+                //    return;
+                //}
+
             }
-            catch (Exception ex)
+            catch (IndexOutOfRangeException)
             {
 
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Wrong usage of a symbol");
             }
          
 
@@ -339,10 +329,11 @@ namespace Calculator_0
             txtResult.Text += message;
         }
 
+        //Event binding?
         private void btnMultiply_Click(object sender, EventArgs e)
         {
             operation = 3;
-            Sign();
+            SymbolCheck();
             AddToTextBox((sender as Button).Text);
 
             GetText(number1);
@@ -351,7 +342,7 @@ namespace Calculator_0
         private void btnAdd_Click(object sender, EventArgs e)
         {
             operation = 1;
-            Sign();
+            SymbolCheck();
             AddToTextBox((sender as Button).Text);
             GetText(number1);
             
@@ -392,7 +383,7 @@ namespace Calculator_0
             operation = 0;
         }
 
-        private void btn_Click(object sender, EventArgs e)
+        private void btnClearAll_Click(object sender, EventArgs e)
         {
             txtResult.Clear();
             lblProcess.Text = "";

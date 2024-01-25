@@ -47,7 +47,7 @@
             this.btnDot = new System.Windows.Forms.Button();
             this.txtResult = new System.Windows.Forms.TextBox();
             this.lblProcess = new System.Windows.Forms.Label();
-            this.btn = new System.Windows.Forms.Button();
+            this.btnClearAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMinus
@@ -238,22 +238,22 @@
             this.lblProcess.Size = new System.Drawing.Size(245, 32);
             this.lblProcess.TabIndex = 11;
             // 
-            // btn
+            // btnClearAll
             // 
-            this.btn.Location = new System.Drawing.Point(836, 14);
-            this.btn.Name = "btn";
-            this.btn.Size = new System.Drawing.Size(75, 35);
-            this.btn.TabIndex = 12;
-            this.btn.Text = "C";
-            this.btn.UseVisualStyleBackColor = true;
-            this.btn.Click += new System.EventHandler(this.btn_Click);
+            this.btnClearAll.Location = new System.Drawing.Point(836, 14);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(75, 35);
+            this.btnClearAll.TabIndex = 12;
+            this.btnClearAll.Text = "C";
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1413, 657);
-            this.Controls.Add(this.btn);
+            this.Controls.Add(this.btnClearAll);
             this.Controls.Add(this.lblProcess);
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.btnDot);
@@ -301,7 +301,7 @@
         private System.Windows.Forms.Button btnDot;
         private System.Windows.Forms.TextBox txtResult;
         private System.Windows.Forms.Label lblProcess;
-        private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.Button btnClearAll;
     }
 }
 
