@@ -248,14 +248,13 @@ namespace Calculator_0
 
         }
 
-        //TODO : if operation!=0 create the number as negative number
-
-        
-
+       
         //TODO : Refactoring
+
+
         //.If first charachter is 0 than write that character on to zero 
 
-        private void GetText(float number)
+        private void GetText(float number,string text)
         {
             string nmr1 = null;
 
@@ -266,22 +265,30 @@ namespace Calculator_0
             try
             {   
                 if (string.IsNullOrEmpty(lblProcess.Text)) 
-                { 
-                    number1 = Convert.ToSingle(nmr1,CultureInfo.InvariantCulture);
-                    Text = number1.ToString();
+                {
+                   
+                        number1 = Convert.ToSingle(nmr1,CultureInfo.InvariantCulture);
+                    if (number1 != 0 && txtResult.Text[txtResult.Text.Length - 2] == '-')
+                        number1 = number1 * -1;
+                        Text = number1.ToString();
                     
                 }
                 else
                 {
-                    number2 = Convert.ToSingle(nmr1,CultureInfo.InvariantCulture);
+                   
+                        number2 = (Convert.ToSingle(nmr1, CultureInfo.InvariantCulture)) ;
+                    if (number2 != 0 && txtResult.Text[txtResult.Text.Length - 2] == '-')
+                        number2 = number2 * -1;
                     Text = number2.ToString();
                 }
 
-             
 
-                lblProcess.Text += txtResult.Text;
-                txtResult.Clear();
-
+                if (text!="-")
+                {
+                    lblProcess.Text += txtResult.Text;
+                    txtResult.Clear();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -297,7 +304,7 @@ namespace Calculator_0
             operation = 4;
             SymbolCheck();
             AddToTextBox((sender as Button).Text);
-            GetText(number1);  
+            GetText(number1,(sender as Button).Text);  
         }
 
         private void SymbolCheck()
@@ -319,6 +326,7 @@ namespace Calculator_0
             {
 
                 MessageBox.Show("Wrong usage of a symbol");
+               
             }
          
 
@@ -336,7 +344,7 @@ namespace Calculator_0
             SymbolCheck();
             AddToTextBox((sender as Button).Text);
 
-            GetText(number1);
+            GetText(number1, (sender as Button).Text);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -344,45 +352,53 @@ namespace Calculator_0
             operation = 1;
             SymbolCheck();
             AddToTextBox((sender as Button).Text);
-            GetText(number1);
+            GetText(number1, (sender as Button).Text);
             
         }
 
         private void btnMinus_Click(object sender, EventArgs e)
         {
-            operation = 2;
+            
+            if (operation==0)
+            {
+                operation = 2;
+            }
+            
             AddToTextBox((sender as Button).Text);
-            GetText(number1);
+            GetText(number1,(sender as Button).Text);
           
         }
         float result;
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             txtResult.Text += "=";
-            GetText(number2);
+
+            GetText(number2, (sender as Button).Text);
+
             switch (operation)
             {
                 case 1:
-                   result =number1 + number2;
+                    result = number1 + number2;
                     break;
                 case 2:
-                    result=number1 - number2;
+                    result = number1 - number2;
                     break;
                 case 3:
-                        result=number1 * number2;
+                    result = number1 * number2;
                     break;
-                    case 4:
-                        result=number1 / number2;
+                case 4:
+                    result = number1 / number2;
                     break;
-             
+
             }
-            
-            
-            txtResult.Text = result.ToString();
             number1 = result;
+
+            txtResult.Text = result.ToString();
+           
             operation = 0;
         }
 
+      
         private void btnClearAll_Click(object sender, EventArgs e)
         {
             txtResult.Clear();
