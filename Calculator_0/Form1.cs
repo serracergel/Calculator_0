@@ -240,9 +240,12 @@ namespace Calculator_0
         
         private void btn1_Click(object sender, EventArgs e)
         {
-           
-
-            txtResult.Text += (sender as Button).Text;
+            if (txtResult.Text=="" && (sender as Button).Text==".")
+            {
+                MessageBox.Show("Wrong character usage");
+            }
+            else txtResult.Text += (sender as Button).Text;
+        
 
             
 
@@ -277,7 +280,7 @@ namespace Calculator_0
                 {
                    
                         number2 = (Convert.ToSingle(nmr1, CultureInfo.InvariantCulture)) ;
-                    if (number2 != 0 && txtResult.Text[txtResult.Text.Length - 2] == '-')
+                    if (number2 != 0 && txtResult.Text[txtResult.Text.Length - 1] == '-')
                         number2 = number2 * -1;
                     Text = number2.ToString();
                 }
@@ -302,38 +305,27 @@ namespace Calculator_0
         private void btnDivide_Click(object sender, EventArgs e)
         {
             operation = 4;
-            SymbolCheck();
+            
             AddToTextBox((sender as Button).Text);
             GetText(number1,(sender as Button).Text);  
         }
 
-        private void SymbolCheck()
+       
+        private void AddToTextBox(string message)
         {
             try
             {
-                char ch = txtResult.Text[txtResult.Text.Length - 1];
-
-               
-                //if (ch == '+' || ch == 'x' || ch == '/' || ch=='-' )
-                //{
-                //    //TODO:or dont show anything on messagebox and catch(Length) last symbol(item) and put it rather than that symbol
-                //    MessageBox.Show("There is already an ongoing process ");
-                //    return;
-                //}
-
+                if (message!="-")
+                {
+                   char c= txtResult.Text[txtResult.Text.Length - 1];
+                } 
             }
             catch (IndexOutOfRangeException)
             {
 
                 MessageBox.Show("Wrong usage of a symbol");
-               
+                return;
             }
-         
-
-        }
-
-        private void AddToTextBox(string message)
-        {
             txtResult.Text += message;
         }
 
@@ -341,7 +333,7 @@ namespace Calculator_0
         private void btnMultiply_Click(object sender, EventArgs e)
         {
             operation = 3;
-            SymbolCheck();
+
             AddToTextBox((sender as Button).Text);
 
             GetText(number1, (sender as Button).Text);
@@ -350,7 +342,7 @@ namespace Calculator_0
         private void btnAdd_Click(object sender, EventArgs e)
         {
             operation = 1;
-            SymbolCheck();
+
             AddToTextBox((sender as Button).Text);
             GetText(number1, (sender as Button).Text);
             
