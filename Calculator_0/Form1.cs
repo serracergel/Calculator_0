@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,381 +22,207 @@ namespace Calculator_0
             InitializeComponent();
         }
 
-
-
-        #region Deneme
-        //int number=0;
-        //int count;
-        //int number2;
-        //int result;
-
-        //private void btnMultiply_Click(object sender, EventArgs e)
-        //{
-        //    count++;
-        //}
-
-        //private void btnAdd_Click(object sender, EventArgs e)
-        //{
-        //    count++;
-        //}
-
-        //private void btnCalculate_Click(object sender, EventArgs e)
-        //{
-
-        //    Calculate(symbol);
-        //}
-
-
-        //#region
-        ////foreach (control i in controls)
-        ////{
-        ////    if (i is button)
-        ////    {
-        ////        if ((sender as button).text == i.text)
-        ////        {
-        ////            sayi = convert.toınt32(i.text);
-        ////        }
-        ////    }
-        ////}
-        ////if (toplam == 0) findthenumber(sender, sayi);
-
-        ////else findthenumber(sender, sayi2);
-        //#endregion
-
-        //string symbol;
-        //#region MyRegion
-        ////private void FindTheNumber(object sender,int number)
-        ////{
-        ////    for (int i = 0; i < 9; i++)
-        ////    {
-        ////        if ((sender as Button).Text == i.ToString())
-        ////        {
-        ////            number = i;
-        ////           Text= number.ToString();
-        ////        }
-        ////    }
-        ////} 
-        //#endregion
-
-        //private void btnMinus_Click(object sender, EventArgs e)
-        //{
-        //    count++;
-        //}
-
-        //private void btnDivide_Click(object sender, EventArgs e)
-        //{
-        //    count++;
-        //}
-
-        //private void btn2_Click(object sender, EventArgs e)
-        //{
-        //    //FindingTheNumber((sender as Button).Text);
-        //    symbol=(sender as Button).Text;
-        //    FindNumber(2, symbol);
-
-
-        //}
-
-        //private void FindNumber(int sayi,string text)
-        //{
-        //    if (count == 0|| number==0)
-        //    {
-        //        number += sayi;
-        //        Text = number.ToString();
-        //    }
-        //    else
-        //    {
-
-        //        number2 = Convert.ToInt32(text);
-        //        Text= number2.ToString();   
-        //    }
-
-
-        //}
-
-        ////private void FindingTheNumber(string text)
-        ////{
-        ////    if (count!=0)
-        ////    number = Convert.ToInt32(text);
-        ////    else
-        ////    {
-
-        ////    }
-        ////    lblResult.Text=number.ToString();
-        ////}
-
-        //private void btn3_Click(object sender, EventArgs e)
-        //{
-        //    //FindingTheNumber((sender as Button).Text);
-        //    symbol=(sender as Button).Text;
-        //    FindNumber(3, symbol); 
-        //}
-
-        //private void btn4_Click(object sender, EventArgs e)
-        //{
-        //    //FindingTheNumber((sender as Button).Text); 
-        //    FindNumber(4,symbol);
-        //}
-
-        //private void btn1_Click(object sender, EventArgs e)
-        //{
-        //    FindNumber(1, symbol);
-
-        //}
-
-        //private void btn5_Click(object sender, EventArgs e)
-        //{
-        //    //FindingTheNumber((sender as Button).Text);
-        //    FindNumber(5,symbol);
-        //}
-
-        //private void btn6_Click(object sender, EventArgs e)
-        //{
-        //    //FindingTheNumber((sender as Button).Text);
-        //    FindNumber(6,symbol);
-        //}
-
-        //private void btn7_Click(object sender, EventArgs e)
-        //{
-        //    FindNumber(7,symbol);
-        //}
-
-        //private void btn8_Click(object sender, EventArgs e)
-        //{
-        //    //FindingTheNumber((sender as Button).Text);
-        //    FindNumber(8, symbol);
-        //}
-
-        //private void btn9_Click(object sender, EventArgs e)
-        //{
-        //    FindNumber(9, symbol);
-        //}
-
-        //private void btn0_Click(object sender, EventArgs e)
-        //{
-        //    FindNumber(0,symbol);
-        //}
-
-        //public void Calculate(string text)
-        //{
-        //    switch (text)
-        //    {
-        //        case "/":
-        //         result =  number / number2;
-        //            break;
-        //        case "+":
-        //            result = number + number2;
-        //            break;
-        //            case "-":
-        //                result = number - number2;
-        //            break; 
-        //        case "x":
-        //            result = number * number2; 
-        //            break;
-        //        default:
-        //            break;
-        //    }
-
-        //}
-
-        //private void btnReset_Click(object sender, EventArgs e)
-        //{
-        //    count = 0;
-        //} 
-
-
-
-
-        // number1= float.Parse(firstN);
-        //nmr1 +=(sender as Button).Text;
-        //    number1=Convert.ToSingle(nmr1);
-
-
-        //else //operation != 0
-        //{
-
-        //    //foreach?
-        //    List<>
-        //    number2 =Convert.ToSingle((sender as Button).Text);
-
-
-
-
-
-
-        //}
-        #endregion
-        byte operation;
-
-        
-       
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-           
-            txtResult.Clear();
-        }
-
-        
-        float number1;
-        float number2;
-        
         private void btn1_Click(object sender, EventArgs e)
         {
-            if (txtResult.Text=="" && (sender as Button).Text==".")
+            
+            if (!string.IsNullOrEmpty(txtResult.Text))
             {
-                MessageBox.Show("Wrong character usage");
+                //If the first character entered in the tbox is "0"
+                if (txtResult.Text[0] == '0')
+                {
+                    string replace = txtResult.Text.Replace("0", (sender as Button).Text);
+                    txtResult.Text = replace;
+                }
+                else if (operation == 5) MessageBox.Show("Please enter a calculation sign");
+                else txtResult.Text += (sender as Button).Text;
+
             }
             else txtResult.Text += (sender as Button).Text;
-        
-
-            
-
         }
-
-       
-        //TODO : Refactoring
-
-
-        //.If first charachter is 0 than write that character on to zero 
-
-        private void GetText(float number,string text)
+      
+        //Add calculation operators("/","+"...) to textbox
+        private bool AddToTextBox(string btnText)
         {
-            string nmr1 = null;
-
-            for (int i = 0; i < txtResult.Text.Length - 1; i++)
-            {
-                nmr1 += txtResult.Text[i];
-            }
             try
-            {   
-                if (string.IsNullOrEmpty(lblProcess.Text)) 
+            {
+              
+                if (string.IsNullOrEmpty(txtResult.Text) && string.IsNullOrEmpty(lblProcess.Text)) MessageBox.Show("Please first write number to calculate");
+
+                else if (!string.IsNullOrEmpty(lblProcess.Text))
                 {
                    
-                        number1 = Convert.ToSingle(nmr1,CultureInfo.InvariantCulture);
-                    if (number1 != 0 && txtResult.Text[txtResult.Text.Length - 2] == '-')
-                        number1 = number1 * -1;
-                        Text = number1.ToString();
-                    
-                }
-                else
-                {
-                   
-                        number2 = (Convert.ToSingle(nmr1, CultureInfo.InvariantCulture)) ;
-                    if (number2 != 0 && txtResult.Text[txtResult.Text.Length - 1] == '-')
-                        number2 = number2 * -1;
-                    Text = number2.ToString();
-                }
+                    char last = lblProcess.Text[lblProcess.Text.Length - 1];
+                    //Change the last entered operator with the new input 
+                    if (last == '-' || last == '+' || last == 'x' || last == '/')
+                    {
+                        string replace = lblProcess.Text.Replace(last, Convert.ToChar(btnText));
+                        lblProcess.Text = replace;
 
-
-                if (text!="-")
-                {
-                    lblProcess.Text += txtResult.Text;
-                    txtResult.Clear();
+                    }
+                    else txtResult.Text += btnText;
+                    return false;
+                    #region WhyReturningFalse?
+                    //If user changed the operator dont try to catch the input/number(you already have it).I made an algorithm that if there is an already existing operator ,when User clicks the another operator just change the operator and return false to catch any number(we already have input in that time)
+                    #endregion
                 }
-                
+                else txtResult.Text += btnText;
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
+               
             }
-            
+         
+            return true;
         }
 
-     
+        private void btnDot_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtResult.Text) || operation == 5) MessageBox.Show("Wrong character usage");
+            
+            else AddToTextBox((sender as Button).Text);
+        }
+
+        //Clear textbox(last input)
+        private void btnClearEntry_Click(object sender, EventArgs e)
+        {
+            txtResult.Clear();
+        }
+
+        byte operation;
+        
         private void btnDivide_Click(object sender, EventArgs e)
         {
-            operation = 4;
-            
-            AddToTextBox((sender as Button).Text);
-            GetText(number1,(sender as Button).Text);  
+            bool number=AddToTextBox(btnDivide.Text);
+            if (number != false) number1 = GetText();
+           
+            AddTextToLabel();
+            operation = 1;
         }
-
-       
-        private void AddToTextBox(string message)
-        {
-            try
-            {
-                if (message!="-")
-                {
-                   char c= txtResult.Text[txtResult.Text.Length - 1];
-                } 
-            }
-            catch (IndexOutOfRangeException)
-            {
-
-                MessageBox.Show("Wrong usage of a symbol");
-                return;
-            }
-            txtResult.Text += message;
-        }
-
-        //Event binding?
+        
         private void btnMultiply_Click(object sender, EventArgs e)
         {
-            operation = 3;
-
-            AddToTextBox((sender as Button).Text);
-
-            GetText(number1, (sender as Button).Text);
+            bool number=AddToTextBox(btnMultiply.Text);
+            if (number != false) number1 = GetText();
+           //do we already have an input or not?
+            AddTextToLabel();
+            operation = 2;
         }
-
+         
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            operation = 1;
+            bool number=AddToTextBox(btnAdd.Text);
+           if(number!=false) number1 = GetText();
 
-            AddToTextBox((sender as Button).Text);
-            GetText(number1, (sender as Button).Text);
-            
+            AddTextToLabel();
+            operation = 3;
         }
 
         private void btnMinus_Click(object sender, EventArgs e)
         {
-            
-            if (operation==0)
-            {
-                operation = 2;
-            }
-            
-            AddToTextBox((sender as Button).Text);
-            GetText(number1,(sender as Button).Text);
+            bool number=AddToTextBox(btnMinus.Text);
+            if (number != false) number1 = GetText();
           
+            AddTextToLabel();
+            operation = 4;
         }
-        float result;
+        //Main input 
+        float number1;
+      
+
+        //Get the input from the textbox
+        private float GetText()
+        {
+           //if user already calculated, return result as first number but if User clicked C(clear all) get a new input(dont return result as first number) 
+            if (operation == 5 && operation!=6) return number1;
+            
+            string numbers=null;
+            foreach(char item in txtResult.Text)
+            {
+                if (item != '-' && item != '+' && item != 'x' && item != '/')
+                {
+                    numbers += item;
+                }
+            }
+           
+            if (operation!=0 &&numbers==null)
+            {
+                MessageBox.Show("Please enter input");
+            }
+                float number = Convert.ToSingle(numbers, CultureInfo.InvariantCulture);
+                return number;
+        }
+      
+
+        private void AddTextToLabel()
+        {
+            lblProcess.Text += txtResult.Text;
+            txtResult.Clear();
+        }
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            txtResult.Text += "=";
-
-            GetText(number2, (sender as Button).Text);
-
-            switch (operation)
+            try
             {
-                case 1:
-                    result = number1 + number2;
-                    break;
-                case 2:
-                    result = number1 - number2;
-                    break;
-                case 3:
-                    result = number1 * number2;
-                    break;
-                case 4:
-                    result = number1 / number2;
-                    break;
+                float number2 = GetText();
 
+                AddTextToLabel();
+
+                lblProcess.Text += "=";
+
+                switch (operation)
+                {
+                  
+                    case 1:
+                        if (number2 != 0) number1 /= number2;
+
+                        else
+                        {
+                            MessageBox.Show("Cannot divide by zero!");
+                            return;
+                        }
+                        break;
+                  
+                    case 2:
+                        number1 *= number2;
+                        break;
+                   
+                    case 3:
+                        number1 += number2;
+                        break;
+                   
+                    case 4:
+                        number1 -= number2;
+
+                        break;
+                    default:
+                        //operation=0 
+                        if (number1 != 0) MessageBox.Show("Please write a calculation");
+                        break;
+                }
+                txtResult.Text = $"{number1}";
+
+                string checkedNumber = txtResult.Text.Replace(',', '.');
+                number1 = Convert.ToSingle(checkedNumber, CultureInfo.InvariantCulture);
+                //InvariantCulture(prop of CultureInfo):Enables calculation according to the format of float numbers(ex:5.6,346.2)
+                operation = 5; 
+                
             }
-            number1 = result;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-            txtResult.Text = result.ToString();
            
-            operation = 0;
         }
 
-      
         private void btnClearAll_Click(object sender, EventArgs e)
         {
-            txtResult.Clear();
-            lblProcess.Text = "";
+            operation = 6;
+            lblProcess.Text = null;
+            txtResult.Text = null;
         }
+
+
+     
     }
 }
