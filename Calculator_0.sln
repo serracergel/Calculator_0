@@ -5,6 +5,11 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator_0", "Calculator_0\Calculator_0.csproj", "{BBBEF8D9-5702-4738-BC3C-F575A4C59D35}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{407996E2-AB10-4E54-87F5-42A89F5AF5A5}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectNotesAndRefactorings.txt = ProjectNotesAndRefactorings.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

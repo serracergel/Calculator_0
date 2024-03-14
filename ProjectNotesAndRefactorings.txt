@@ -1,0 +1,8 @@
+You can continue with the same calculation or start a new one
+If you start a new one you can see your past calculations at the label
+If you try to do multiple calculation program will warn you to do one by one
+You can do calculation with float numbers(5.2 , 534.5...)
+ClearEntry(CE) button will clear the textbox ,ClearAll(C) button will clear both textbox and label
+
+
+
