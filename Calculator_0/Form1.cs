@@ -123,7 +123,18 @@ namespace Calculator_0
         //Clear textbox(last input)
         private void btnClearEntry_Click(object sender, EventArgs e)
         {
+            if (operation == 5)
+            {
+                NewCalculationCheck();
+            }
             txtResult.Clear();
+        }
+
+        private void NewCalculationCheck()
+        {
+            AddTextToLabel();
+            lblProcess.Text += "\r";
+            operation = 7;
         }
 
         byte operation;
